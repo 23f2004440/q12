@@ -101,8 +101,9 @@ async def ask_gemini(request: AskRequest):
         if 'audio_file' in locals():
             genai.delete_file(audio_file.name)
 
-
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    import os
+    # Render provides a PORT environment variable, we must use it!
+    port = int(os.environ.get("PORT", 8001))
+    uvicorn.run(app, host="0.0.0.0", port=port)
